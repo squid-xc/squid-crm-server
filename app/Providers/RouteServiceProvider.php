@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Routes\CustomerRoutes;
+use App\Http\Routes\CrmRoutes;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -41,8 +41,8 @@ class RouteServiceProvider extends ServiceProvider
     public function map(Router $router)
     {
         $router->group(['namespace' => $this->namespace],function (){
-            //客户相关路由
-            (new CustomerRoutes())->map();
+            //crm相关路由
+            (new CrmRoutes())->map();
         });
 
         $this->mapWebRoutes($router);

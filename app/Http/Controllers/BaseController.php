@@ -10,6 +10,10 @@ use App\Service\Application;
  */
 class BaseController extends Controller{
 
+    protected $stuff_id;
+
+    protected $stuff;
+
     /**
      * @var \App\Service\Application;
      */
@@ -18,6 +22,12 @@ class BaseController extends Controller{
     public function __construct()
     {
         $this->service_application = new Application();
+
+        $stuff_service = $this->service_application->stuff_service;
+        $this->stuff_id = $stuff_service->getCurrentStuffID();
+        if(!empty($this->stuff_id)){
+            $this->stuff = $stuff_service->get($this->stuff_id);
+        }
     }
 
 }

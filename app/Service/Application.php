@@ -13,6 +13,14 @@ use Pimple\Container;
 /**
  * Class Application
  * @property \App\Service\CustomerService $customer_service
+ * @property \App\Repository\CustomersRepository $customer_repository
+ * @property \App\Repository\IndustriesRepository $industry_repository
+ * @property \App\Service\SyslogService $syslog_service
+ * @property \App\Service\DutyService $duty_service
+ * @property \App\Service\CompanyService $company_service
+ * @property \App\Service\ProjectService $project_service
+ * @property \App\Service\StuffService $stuff_service
+ * @property \App\Service\ContactService $contact_service
  */
 class Application extends Container{
 
@@ -24,6 +32,13 @@ class Application extends Container{
 
     protected $providers = [
         ServiceProviders\CustomerServiceProvider::class,
+        ServiceProviders\SyslogServiceProvider::class,
+        ServiceProviders\DutyServiceProvider::class,
+        ServiceProviders\CompanyServiceProvider::class,
+        ServiceProviders\ProjectServiceProvider::class,
+        ServiceProviders\StuffServiceProvider::class,
+        ServiceProviders\ContactServiceProvider::class,
+        ServiceProviders\IndustryServiceProvider::class,
     ];
 
     public function addProvider($provider){

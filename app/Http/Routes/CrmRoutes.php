@@ -7,7 +7,7 @@ namespace App\Http\Routes;
  * Date: 2018/5/11
  * Time: 15:18
  */
-class CustomerRoutes implements RouteInterface{
+class CrmRoutes implements RouteInterface{
 
     public function map(){
         \Route::group([
@@ -15,6 +15,12 @@ class CustomerRoutes implements RouteInterface{
         ],function (){
             \Route::get('/index','CustomerController@index');
 
+        });
+
+        \Route::group([
+            'prefix' => 'syslog',
+        ],function (){
+            \Route::get('/index','SyslogController@index');
         });
     }
 

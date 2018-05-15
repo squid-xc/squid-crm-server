@@ -70,6 +70,10 @@ abstract class Repository
         return false;
     }
 
+    /**
+     * @param int|array $id
+     * @return int
+     */
     public function delete($id)
     {
         return $this->model::destroy($id);

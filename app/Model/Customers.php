@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $status 客户状态 1、潜在 2、有意向 3、失败 4、已成交 5、老客户
  * @property float $rank 星级
  * @property string $next_contact_time 下次联系时间
+ * @property int $is_lock 是否锁定 0未锁定 1锁定
  * @property string $remark 备注
  * @property string $updated_at 更新时间
  * @property string $created_at 创建时间
@@ -43,6 +44,6 @@ class Customers extends Model
 
     protected $table = 'customers';
 
-    protected $fillable = ['name', 'code', 'charge_id', 'contact_name', 'contact_phone', 'phone', 'email', 'industry_id', 'property_id', 'legal_person', 'province_id', 'city_id', 'stuff_amount', 'address', 'zip_code', 'url', 'fax', 'description', 'bank_id', 'bank_number', 'source', 'status', 'rank', 'next_contact_time', 'remark'];
+    protected $fillable = ['name', 'code', 'charge_id', 'contact_name', 'contact_phone', 'phone', 'email', 'industry_id', 'property_id', 'legal_person', 'province_id', 'city_id', 'stuff_amount', 'address', 'zip_code', 'url', 'fax', 'description', 'bank_id', 'bank_number', 'source', 'status', 'rank', 'next_contact_time','is_lock', 'remark'];
 
 }

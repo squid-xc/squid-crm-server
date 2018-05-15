@@ -22,6 +22,7 @@ class CustomerServiceProvider implements ServiceProviderInterface {
         $pimple['customer_service'] = function ($pimple){
             $instance = new CustomerService();
             $instance->setCustomerRepository($pimple['customer_repository']);
+            $instance->setIndustryRepository($pimple['industry_repository']);
             return $instance;
         };
     }

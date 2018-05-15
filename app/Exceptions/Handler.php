@@ -47,6 +47,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof IllegalParameterException){
+            if($e->getCode() == 200){
+                return successJsonReturn($e->getMsg(),$e->getData());
+            }
+            return failJsonReturn($e->getCode(),$e->getMsg(),$e->getData());
+        }
+
         return parent::render($request, $e);
     }
 }

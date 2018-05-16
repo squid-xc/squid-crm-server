@@ -72,6 +72,27 @@ class StuffService
         return $this->stuff_repository->paginateGetList($where, $page, $limit);
     }
 
+    public function register($phone,$password){
+        if(empty($phone) || empty($password)){
+            return false;
+        }
+
+        $where = [
+            'phone' => $phone,
+        ];
+        $entry = $this->stuff_repository->getOne($where);
+        if(!empty($entry)){
+            throw new IllegalParameterException(400,'该手机号码已注册，请直接登录');
+        }
+
+        $new_entry = [
+            'phone' => $phone,
+            'password' => md5($password.Constants::USER_PASSWORD_SALT),
+            'name' => '用户'.$phone,
+        ];
+        return $this->stuff_repository->create($new_entry);
+    }
+
     public function login($phone, $password)
     {
         if (empty($phone) || empty($password)) {
@@ -84,15 +105,15 @@ class StuffService
         ];
         $entry = $this->stuff_repository->getOne($where);
         if(empty($entry)){
-            throw new IllegalParameterException(1,'用户名或密码不正确');
+            throw new IllegalParameterException(400,'用户名或密码不正确');
         }
 
         $data = [
             'stuff_id' => $entry->id,
         ];
-        $token = $this->jwt_service->encode($data,self::STUFF_LOGIN_EXPIRETIME);
+        $token = JWTService::encode($data,self::STUFF_LOGIN_EXPIRETIME);
         if(empty($token)){
-            throw new IllegalParameterException(1,'登录失败');
+            throw new IllegalParameterException(400,'登录失败');
         }
 
         \Cookie::queue(

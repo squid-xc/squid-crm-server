@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * 
  * @property int $id Id
  * @property string $name 名称
+ * @property int $avatar 头像
  * @property string $job_number 工号
  * @property string $description 描述
  * @property string $login_name 登录名
@@ -38,6 +39,8 @@ class Stuff extends Model
 
     protected $table = 'stuff';
 
-    protected $fillable = ['name', 'job_number', 'description', 'login_name', 'password', 'encrypt', 'email', 'phone', 'department_id', 'duty_id', 'role_id', 'bank_id', 'bank_number', 'opening_bank', 'province_id', 'city', 'area_code', 'type', 'source', 'entry_time'];
+    protected $fillable = ['name','avatar', 'job_number', 'description', 'login_name', 'password', 'encrypt', 'email', 'phone', 'department_id', 'duty_id', 'role_id', 'bank_id', 'bank_number', 'opening_bank', 'province_id', 'city', 'area_code', 'type', 'source', 'entry_time'];
+
+    protected $hidden = ['password'];
 
 }

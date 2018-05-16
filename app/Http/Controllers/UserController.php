@@ -28,7 +28,13 @@ class UserController extends BaseController
         if (!preg_match('/^1[0-9]{10}$/', $phone)) {
             return failJsonReturn(400, '手机号码格式不正确');
         }
-        
+
+        $result = $this->service_application->stuff_service->register($phone,$password);
+        if(empty($result)){
+            return failJsonReturn(400,'注册失败');
+        }
+
+        return successJsonReturn('注册成功',$result);
     }
 
     public function resetPasswd()

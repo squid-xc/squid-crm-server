@@ -29,4 +29,7 @@ class Syslogs extends Model
         return $this->belongsTo(Stuff::class,'stuff_id');
     }
 
+
+
+
 }

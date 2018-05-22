@@ -3,6 +3,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
 
 /**
  * 员工表
@@ -33,14 +35,57 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $created_at 创建时间
  * @property string $deleted_at 删除时间
  */
-class Stuff extends Model
+class Stuff extends Model implements Authenticatable,AuthenticatableUserContract
 {
     use SoftDeletes;
+
+    protected $attributes;
 
     protected $table = 'stuff';
 
     protected $fillable = ['name','avatar', 'job_number', 'description', 'login_name', 'password', 'encrypt', 'email', 'phone', 'department_id', 'duty_id', 'role_id', 'bank_id', 'bank_number', 'opening_bank', 'province_id', 'city', 'area_code', 'type', 'source', 'entry_time'];
 
     protected $hidden = ['password'];
+
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->attributes[$this->getAuthIdentifierName()];
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->attributes['password'];
+    }
+
+    public function getRememberToken()
+    {
+        return $this->attributes[$this->getRememberTokenName()];
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->attributes[$this->getRememberTokenName()] = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
 
 }

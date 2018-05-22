@@ -12,7 +12,7 @@ class SyslogController extends BaseController{
 
     public function index(){
         $page = request('page',1);
-        $page_size = request('page_size',15);
+        $page_size = request('page_size',10);
         $module_id = request('module_id');
         $from_time = request('from_time');
         $to_time = request('to_time');

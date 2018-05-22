@@ -15,13 +15,7 @@ class CrmRoutes implements RouteInterface{
         ],function (){
             \Route::post('/login','UserController@login');
             \Route::post('/register','UserController@register');
-        });
-
-        \Route::group([
-            'prefix' => 'customer',
-        ],function (){
-            \Route::get('/index','CustomerController@index');
-
+            \Route::get('/verificationCode','UserController@verificationCode');
         });
 
         \Route::group([
@@ -29,6 +23,19 @@ class CrmRoutes implements RouteInterface{
         ],function (){
             \Route::get('/index','SyslogController@index');
         });
+
+        \Route::group([
+            'prefix' => 'customer',
+            'middleware' => 'refreshToken'
+        ],function (){
+            \Route::get('/index','CustomerController@index');
+
+        });
+
+
     }
+
+
+
 
 }

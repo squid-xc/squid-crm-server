@@ -117,7 +117,7 @@ class SyslogsRepository extends Repository{
         }
         $entries = $query->select(['*'])->orderBy('created_at','desc')->with([
             'stuff' => function($query){
-                  $query->select(['name']);
+                  $query->select(['id','name']);
             },
         ])->paginate($limit,['*'],'page',$page);
         foreach ($entries as $entry){

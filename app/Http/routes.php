@@ -19,3 +19,12 @@ Route::match(['get', 'post'], '/database/{action}',function($action){
     $ctrl = \App::make(\App\Http\Controllers\DatabaseController::class);
     return \App::call([$ctrl, $action]);
 });
+
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('register', 'AuthController@register');
+
+});

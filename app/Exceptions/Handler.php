@@ -9,6 +9,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -52,6 +54,11 @@ class Handler extends ExceptionHandler
                 return successJsonReturn($e->getMsg(),$e->getData());
             }
             return failJsonReturn($e->getCode(),$e->getMsg(),$e->getData());
+        }
+
+        // 用户认证的异常，我们需要返回 401 的 http code 和错误信息
+        if ($e instanceof UnauthorizedHttpException) {
+            return response($e->getMessage(), 401);
         }
 
         return parent::render($request, $e);

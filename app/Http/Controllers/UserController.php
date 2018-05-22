@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 /**
  * Created by PhpStorm.
  * User: admin123
@@ -10,6 +12,7 @@ namespace App\Http\Controllers;
  */
 class UserController extends BaseController
 {
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     public function register()
     {
@@ -40,6 +43,10 @@ class UserController extends BaseController
     public function resetPasswd()
     {
 
+    }
+
+    public function verificationCode(){
+        return captcha();
     }
 
     public function login()

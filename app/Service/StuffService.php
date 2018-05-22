@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Exceptions\IllegalParameterException;
+use App\Helpers\ArrayHelper;
 use App\Repository\StuffRepository;
 
 /**
@@ -107,9 +108,10 @@ class StuffService
         if(empty($entry)){
             throw new IllegalParameterException(400,'用户名或密码不正确');
         }
+        $entry = $entry->toArray();
 
         $data = [
-            'stuff_id' => $entry->id,
+            'stuff_id' => $entry['id'],
         ];
         $token = JWTService::encode($data,self::STUFF_LOGIN_EXPIRETIME);
         if(empty($token)){
@@ -122,7 +124,14 @@ class StuffService
             self::STUFF_LOGIN_EXPIRETIME / 60
         );
 
-        return true;
+        return ArrayHelper::only($entry,[
+            'id',
+            'name',
+            'avatar',
+            'job_number',
+            'description',
+            'phone'
+        ]);
     }
 
     /**
